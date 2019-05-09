@@ -80,7 +80,7 @@ curve_model = curves.CurveNet(
     args.num_bends,
     architecture_kwargs=architecture.kwargs,
 )
-curve_model.cuda()
+# curve_model.cuda()
 
 checkpoint = torch.load(args.ckpt)
 curve_model.load_state_dict(checkpoint['model_state'])
@@ -116,7 +116,8 @@ bend_coordinates = np.stack(get_xy(p, w[0], u, v) for p in w)
 ts = np.linspace(0.0, 1.0, args.curve_points)
 curve_coordinates = []
 for t in np.linspace(0.0, 1.0, args.curve_points):
-    weights = curve_model.weights(torch.Tensor([t]).cuda())
+    # weights = curve_model.weights(torch.Tensor([t]).cuda())
+    weights = curve_model.weights(torch)
     curve_coordinates.append(get_xy(weights, w[0], u, v))
 curve_coordinates = np.stack(curve_coordinates)
 
@@ -137,7 +138,7 @@ te_err = np.zeros((G, G))
 grid = np.zeros((G, G, 2))
 
 base_model = architecture.base(num_classes, **architecture.kwargs)
-base_model.cuda()
+# base_model.cuda()
 
 columns = ['X', 'Y', 'Train loss', 'Train nll', 'Train error (%)', 'Test nll', 'Test error (%)']
 

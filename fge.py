@@ -61,7 +61,7 @@ with open(os.path.join(args.dir, 'fge.sh'), 'w') as f:
 
 torch.backends.cudnn.benchmark = True
 torch.manual_seed(args.seed)
-torch.cuda.manual_seed(args.seed)
+# torch.cuda.manual_seed(args.seed)
 
 loaders, num_classes = data.loaders(
     args.dataset,
@@ -79,7 +79,7 @@ criterion = F.cross_entropy
 checkpoint = torch.load(args.ckpt)
 start_epoch = checkpoint['epoch'] + 1
 model.load_state_dict(checkpoint['model_state'])
-model.cuda()
+# model.cuda()
 
 optimizer = torch.optim.SGD(
     model.parameters(),

@@ -42,7 +42,7 @@ args = parser.parse_args()
 
 torch.backends.cudnn.benchmark = True
 torch.manual_seed(args.seed)
-torch.cuda.manual_seed(args.seed)
+# torch.cuda.manual_seed(args.seed)
 
 if args.dataset is not None:
     loaders, num_classes = data.loaders(
@@ -82,11 +82,12 @@ for base_model, path, k in zip(base, [args.init_start, args.init_end], [0, args.
 if args.init_linear:
     print('Linear initialization.')
     curve_model.init_linear()
-curve_model.cuda()
-for base_model in base:
-    base_model.cuda()
+# curve_model.cuda()
+# for base_model in base:
+    # base_model.cuda()
 
-t = torch.FloatTensor([0.0]).cuda()
+# t = torch.FloatTensor([0.0]).cuda()
+t = torch
 for base_model, t_value in zip(base, [0.0, 1.0]):
     print('T: %f' % t_value)
     t.data.fill_(t_value)
@@ -96,7 +97,7 @@ for base_model, t_value in zip(base, [0.0, 1.0]):
 
     max_error = 0.0
     for i, (input, _) in enumerate(loader):
-        input = input.cuda(async=True)
+        # input = input.cuda(async=True)
 
         base_ouput = base_model(input)
         curve_output = curve_model(input, t)

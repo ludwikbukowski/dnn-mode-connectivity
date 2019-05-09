@@ -47,7 +47,7 @@ architecture = getattr(models, args.model)
 model = architecture.base(num_classes=num_classes, **architecture.kwargs)
 criterion = F.cross_entropy
 
-model.cuda()
+# model.cuda()
 
 ensemble_size = 0
 predictions_sum = np.zeros((len(loaders['test'].dataset), num_classes))

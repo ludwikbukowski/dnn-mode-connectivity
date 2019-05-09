@@ -62,7 +62,7 @@ loaders, num_classes = data.loaders(
 
 architecture = getattr(models, args.model)
 base_model = architecture.base(num_classes, **architecture.kwargs)
-base_model.cuda()
+# base_model.cuda()
 
 
 criterion = F.cross_entropy
